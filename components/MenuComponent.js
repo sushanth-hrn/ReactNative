@@ -4,11 +4,12 @@ import { ListItem } from 'react-native-elements';
 
 function Menu(props) {
 
-    const renderMenuItem = ({item, index}) => {
+    const renderMenuItem = ({item, key}) => {
 
         return (
                 <ListItem
-                    key={index}
+                    key={key}
+                    onPress={() => props.onPress(item.id)}
                     title={item.name}
                     subtitle={item.description}
                     hideChevron={true}
