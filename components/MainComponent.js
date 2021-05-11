@@ -4,6 +4,8 @@ import { createStackNavigator, createDrawerNavigator } from "react-navigation";
 import Dishdetail from './DishdetailComponent';
 import Menu from './MenuComponent';
 import Home from './HomeComponent';
+import About from './AboutComponent';
+import Contact from './ContactComponent';
 
 const MenuNavigator = createStackNavigator({
     Menu : { screen : Menu },
@@ -19,7 +21,7 @@ const MenuNavigator = createStackNavigator({
             color : '#fff'
         }
     }
-})
+});
 
 const HomeNavigator = createStackNavigator({
     Home : { screen : Home }
@@ -33,7 +35,35 @@ const HomeNavigator = createStackNavigator({
             color : '#fff'
         }
     }
-})
+});
+
+const AboutNavigator = createStackNavigator({
+    About : { screen : About }
+}, {
+    navigationOptions : {
+        headerStyle : {
+            backgroundColor : '#512DA8'
+        },
+        haederTintColor : '#fff',
+        headerTitleStyle : {
+            color : '#fff'
+        }
+    }
+});
+
+const ContactNavigator = createStackNavigator({
+    Contact : { screen : Contact }
+}, {
+    navigationOptions : {
+        headerStyle : {
+            backgroundColor : '#512DA8'
+        },
+        haederTintColor : '#fff',
+        headerTitleStyle : {
+            color : '#fff'
+        }
+    }
+});
 
 const MainNavigator = createDrawerNavigator({
     Home : {
@@ -43,16 +73,32 @@ const MainNavigator = createDrawerNavigator({
             drawerLabel : 'Home'
         }
     },
+    About : {
+        screen : AboutNavigator,
+        navigationOptions : {
+            title : 'About Us',
+            drawerLabel : 'About Us'
+        }
+    },
     Menu : {
         screen : MenuNavigator,
         navigationOptions : {
             title : 'Menu',
             drawerLabel : 'Menu'
         }
+    },
+    Contact : {
+        screen : ContactNavigator,
+        navigationOptions : {
+            title : 'Contact Us',
+            drawerLabel : 'Contact Us'
+        }
     }
 }, {
     drawerBackgroundColor : '#D1C4E9',
 })
+
+//const MainContainer = createAppContainer(MainNavigator);
 
 class Main extends Component {
     render() {
