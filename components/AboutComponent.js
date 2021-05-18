@@ -23,9 +23,9 @@ function History() {
 
 function RenderLeader(props) {
 
-    const renderItems = ({item, key}) => {
+    const renderItems = ({item, index}) => {
         return (
-            <ListItem key={key} bottomDivider>
+            <ListItem key={index} bottomDivider>
                 <Avatar rounded source={{ uri: './images/alberto.png' }} />
                 <ListItem.Content>
                     <ListItem.Title>

@@ -18,10 +18,10 @@ class Menu extends Component {
 
     render() {
 
-        const renderMenuItem = ({item, key}) => {
+        const renderMenuItem = ({item, index}) => {
             return (
                 <ListItem
-                    key = {key}
+                    key = {index}
                     onPress={() => navigate('Dishdetail',{ dishId: item.id })} 
                     bottomDivider
                 >
