@@ -10,15 +10,14 @@ function RenderItem(props) {
 
     if (item != null) {
         return (
-            <Card 
-                featuredTitle={item.name}
-                feturedSubtitle={item.designation}
-                image={require('./images/uthapizza.png')}
-            >
+            <Card>
+                <Card.Image source={require('./images/uthappizza.png')}>
+                    <Card.FeaturedTitle>{item.name}</Card.FeaturedTitle>
+                    {/* <Card.FeaturedSubtitle>{item.designation}</Card.FeaturedSubtitle> */}
+                </Card.Image>
                 <Text style={{margin:10}}>
                     {item.description}
                 </Text>
-
             </Card>
         );
     } else {

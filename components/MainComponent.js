@@ -1,6 +1,8 @@
 import React , { Component } from 'react';
 import { View, Platform } from "react-native";
-import { createStackNavigator, createDrawerNavigator } from "react-navigation";
+import { createStackNavigator } from "react-navigation-stack";
+import { createDrawerNavigator } from "react-navigation-drawer";
+import { createAppContainer } from "react-navigation";
 import Dishdetail from './DishdetailComponent';
 import Menu from './MenuComponent';
 import Home from './HomeComponent';
@@ -98,14 +100,17 @@ const MainNavigator = createDrawerNavigator({
     drawerBackgroundColor : '#D1C4E9',
 })
 
-//const MainContainer = createAppContainer(MainNavigator);
+//const AppStack = StackNavigator({ MainNavigator : { screen: MainNavigator } });
+
+const MainContainer = createAppContainer(MainNavigator);
 
 class Main extends Component {
     render() {
         return (
-            <View style={{flex: 1, paddingTop: Platform.OS === 'ios' ? 0 : Expo.Consts.statusBarHeight}}>
-                <MainNavigator />
-            </View>
+            // <View style={{flex: 1, paddingTop: Platform.OS === 'ios' ? 0 : Expo.Consts.statusBarHeight}}>
+            //     <MainContainer />
+            // </View>
+            <MainContainer />
         )
     }
 

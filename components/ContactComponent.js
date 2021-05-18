@@ -15,12 +15,14 @@ class Contact extends Component {
                     <Card.Title>Contact Information</Card.Title>
                     <Card.Divider />
                     <Text style={{margin: 10,lineHeight: 30}}>
-                        121, Clear Water Bay Road {'/n'}
-                        Clear Water Bay, Kowloon {'/n'}
-                        HONG KONG {'/n'}
-                        Tel: +852 1234 5678 {'/n'}
-                        Fax: +852 8765 4321 {'/n'}
-                        Email:confusion@food.net {'/n'}
+                        {`
+                        121, Clear Water Bay Road 
+                        Clear Water Bay, Kowloon 
+                        HONG KONG 
+                        Tel: +852 1234 5678 
+                        Fax: +852 8765 4321 
+                        Email:confusion@food.net
+                        `}
                     </Text>
                 </Card>
             </SafeAreaView>

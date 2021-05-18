@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Text, ScrollView, FlatList } from 'react-native';
-import { Card, ListItem } from 'react-native-elements';
+import { Avatar ,Card, ListItem } from 'react-native-elements';
 import { LEADERS } from '../shared/leaders';
 
 function History() {
@@ -21,15 +21,19 @@ function History() {
 
 function RenderLeader(props) {
 
-    const renderItems = ({leader, key}) => {
+    const renderItems = ({item, key}) => {
         return (
-            <ListItem 
-                key = {key}
-                title = {leader.name}
-                subtitle = {leader.designation}
-                hideChevron = {true}
-                leftAvatar = {{source: require('./images/alberto.png')}}
-            />
+            <ListItem key={key} bottomDivider>
+                <Avatar rounded source={{ uri: './images/alberto.png' }} />
+                <ListItem.Content>
+                    <ListItem.Title>
+                        {item.name}
+                    </ListItem.Title>
+                    <ListItem.Subtitle>
+                        {item.designation}
+                    </ListItem.Subtitle>
+                </ListItem.Content>
+            </ListItem>
         );
     }
 
@@ -42,6 +46,7 @@ function RenderLeader(props) {
             />
         </Card>
     )
+    
 }
 
 class About extends Component {
