@@ -6,7 +6,7 @@ import { LEADERS } from '../shared/leaders';
 function History() {
     return (
         <Card style={{margin : 10}}>
-            <Card.Title>"Our History"</Card.Title>
+            <Card.Title>Our History</Card.Title>
             <Card.Divider/>
             <Text style={{margin: 5}}>
                 Started in 2010, Ristorante con Fusion quickly established itself as a culinary icon par excellence in Hong Kong. 
@@ -41,7 +41,7 @@ function RenderLeader(props) {
 
     return (
         <Card>
-            <Card.Title>"Corporate Leadership"</Card.Title>
+            <Card.Title>Corporate Leadership</Card.Title>
             <Card.Divider />
             <FlatList 
                 data = {props.leaders}
