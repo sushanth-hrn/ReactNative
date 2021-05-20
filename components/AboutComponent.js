@@ -3,6 +3,7 @@ import { Text, ScrollView, FlatList } from 'react-native';
 import { Avatar ,Card, ListItem } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { baseurl } from '../shared/baseUrl';
+import { Loading } from './LoadingComponent';
 
 const mapStateToProps = state => {
     return {
@@ -46,18 +47,41 @@ function RenderLeader(props) {
         );
     }
 
-    return (
-        <Card>
-            <Card.Title>Corporate Leadership</Card.Title>
-            <Card.Divider />
-            <FlatList 
-                data = {props.leaders}
-                renderItem = {renderItems}
-                keyExtractor = {(item) => item.id.toString()}
-            />
-        </Card>
-    )
-    
+    if(props.isLoading) {
+        return (
+            <ScrollView>
+                <Card>
+                    <Card.Title>Corporate Leadership</Card.Title>
+                    <Card.Divider />
+                    <Loading />
+                </Card>
+            </ScrollView>
+        );        
+    } 
+    else if(props.errMess) {
+        return (
+            <ScrollView>
+                <Card>
+                    <Card.Title>Corporate Leadership</Card.Title>
+                    <Card.Divider />
+                    <Text>{props.errMess}</Text>
+                </Card>
+            </ScrollView>
+        );
+    }
+    else {
+        return (
+            <Card>
+                <Card.Title>Corporate Leadership</Card.Title>
+                <Card.Divider />
+                <FlatList 
+                    data = {props.leaders}
+                    renderItem = {renderItems}
+                    keyExtractor = {(item) => item.id.toString()}
+                />
+            </Card>
+        );
+    }
 }
 
 class About extends Component {
@@ -70,7 +94,10 @@ class About extends Component {
         return (
             <ScrollView>
                 <History />
-                <RenderLeader leaders={this.props.leaders.leaders} />
+                <RenderLeader leaders={this.props.leaders.leaders} 
+                    isLoading={this.props.leaders.isLoading}
+                    errMess={this.props.leaders.errMess}
+                />
             </ScrollView>
         )
     }
