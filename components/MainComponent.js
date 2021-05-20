@@ -9,6 +9,22 @@ import Menu from './MenuComponent';
 import Home from './HomeComponent';
 import About from './AboutComponent';
 import Contact from './ContactComponent';
+import { connect } from 'react-redux';
+import { baseurl } from '../shared/baseUrl';
+import { fetchComments, fetchDishes, fetchLeaders, fetchPromos } from '../redux/ActionCreators';
+
+const mapStateToProps = state => {
+    return {
+        
+    }
+}
+
+const mapDispatchToProps = dispatch => ({
+    fetchDishes : () => dispatch(fetchDishes()),
+    fetchComments : () => dispatch(fetchComments()),
+    fetchLeaders : () => dispatch(fetchLeaders()),
+    fetchPromos : () => dispatch(fetchPromos()),
+})
 
 const MenuNavigator = createStackNavigator({
     Menu : { screen : Menu,
@@ -92,7 +108,7 @@ const CustomDrawerContentComponent = (props) => (
                 forceInset={{ top : 'always' , horizontal : 'never'}}>
             <View style={styles.drawerHeader}>
                 <View style={{ flex : 1 }}>
-                    <Image source={{uri:'.images/logo.png'}}
+                    <Image source={{ uri: baseurl + 'images/logo.png' }}
                         style={styles.drawerImage}/>
                 </View>
                 <View style={{ flex : 2 }}>
@@ -173,6 +189,14 @@ const MainNavigator = createDrawerNavigator({
 const MainContainer = createAppContainer(MainNavigator);
 
 class Main extends Component {
+
+    componentDidMount() {
+        this.props.fetchDishes();
+        this.props.fetchComments();
+        this.props.fetchPromos();
+        this.props.fetchLeaders();
+    }
+
     render() {
         return (
             <MainContainer />
@@ -205,4 +229,4 @@ const styles = StyleSheet.create({
         height: 60
     }
 })
-export default Main;
+export default connect(mapStateToProps,mapDispatchToProps)(Main);

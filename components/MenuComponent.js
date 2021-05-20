@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
 import { View, FlatList } from 'react-native';
-import { Avatar, ListItem } from 'react-native-elements';
-import { DISHES } from '../shared/dishes';
+import { Avatar, ListItem, Tile } from 'react-native-elements';
+import { connect } from 'react-redux';
+import { baseurl } from '../shared/baseUrl';
 
-class Menu extends Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            dishes: DISHES
-        }
+const mapStateToProps = state => {
+    return {
+        dishes : state.dishes
     }
+}
+class Menu extends Component {
 
     static navigationOptions = {
         title : 'Menu'
@@ -20,22 +19,32 @@ class Menu extends Component {
 
         const renderMenuItem = ({item, index}) => {
             return (
-                <ListItem
+                // <ListItem
+                //     key = {index}
+                //     onPress={() => navigate('Dishdetail',{ dishId: item.id })} 
+                //     bottomDivider
+                // >
+                //     <Avatar rounded source={{ uri: baseurl + item.image }} />
+                //     <ListItem.Content>
+                //         <ListItem.Title>
+                //             {item.name}
+                //         </ListItem.Title>
+                //         <ListItem.Subtitle>
+                //             {item.description}
+                //         </ListItem.Subtitle>
+                //     </ListItem.Content>
+                //     <ListItem.Chevron/>
+                // </ListItem>
+                <Tile 
                     key = {index}
                     onPress={() => navigate('Dishdetail',{ dishId: item.id })} 
-                    bottomDivider
+                    title={item.name}
+                    caption={item.description}
+                    featured
+                    imageSrc={{ uri : baseurl + item.image }}
                 >
-                    <Avatar rounded source={{ uri: './images/uthappizza.png' }} />
-                    <ListItem.Content>
-                        <ListItem.Title>
-                            {item.name}
-                        </ListItem.Title>
-                        <ListItem.Subtitle>
-                            {item.description}
-                        </ListItem.Subtitle>
-                    </ListItem.Content>
-                    <ListItem.Chevron/>
-                </ListItem>
+
+                </Tile>
             );
         };
 
@@ -44,16 +53,13 @@ class Menu extends Component {
         return (  
             <View>
                 <FlatList 
-                    data={this.state.dishes}
+                    data={this.props.dishes.dishes}
                     renderItem={renderMenuItem}
                     keyExtractor={item => item.id.toString()}
                 />
             </View>
         );
-
     }
-
 }
 
-
-export default Menu;
+export default connect(mapStateToProps)(Menu);

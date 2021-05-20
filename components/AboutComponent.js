@@ -1,7 +1,14 @@
 import React, { Component } from 'react';
 import { Text, ScrollView, FlatList } from 'react-native';
 import { Avatar ,Card, ListItem } from 'react-native-elements';
-import { LEADERS } from '../shared/leaders';
+import { connect } from 'react-redux';
+import { baseurl } from '../shared/baseUrl';
+
+const mapStateToProps = state => {
+    return {
+        leaders : state.leaders
+    }
+}
 
 function History() {
     return (
@@ -26,7 +33,7 @@ function RenderLeader(props) {
     const renderItems = ({item, index}) => {
         return (
             <ListItem key={index} bottomDivider>
-                <Avatar rounded source={{ uri: './images/alberto.png' }} />
+                <Avatar rounded source={{ uri: baseurl + item.image }} />
                 <ListItem.Content>
                     <ListItem.Title>
                         {item.name}
@@ -54,12 +61,6 @@ function RenderLeader(props) {
 }
 
 class About extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            leaders : LEADERS
-        }
-    }
 
     static navigationOptions = {
         title: 'About Us'
@@ -69,10 +70,10 @@ class About extends Component {
         return (
             <ScrollView>
                 <History />
-                <RenderLeader leaders={this.state.leaders} />
+                <RenderLeader leaders={this.props.leaders.leaders} />
             </ScrollView>
         )
     }
 }
 
-export default About;
+export default connect(mapStateToProps)(About);
