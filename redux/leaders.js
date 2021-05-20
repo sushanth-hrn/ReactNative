@@ -1,7 +1,7 @@
 import * as ActionTypes from './ActionTypes';
 
 export const leaders = (state = {
-    isLoading: true,
+    isLoading: false,
     errMess: null,
     leaders: []
 },action) => {
