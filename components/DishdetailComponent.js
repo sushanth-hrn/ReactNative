@@ -81,12 +81,6 @@ function RenderComments(props) {
 }
 
 class Dishdetail extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            favorites: []
-        }
-    }
 
     static navigationOptions = {
         title: 'Dish Detail'
