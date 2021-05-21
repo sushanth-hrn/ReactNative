@@ -10,6 +10,7 @@ import Home from './HomeComponent';
 import About from './AboutComponent';
 import Contact from './ContactComponent';
 import Reservation from './ReservationComponent';
+import Favorite from './FavoriteComponent';
 import { connect } from 'react-redux';
 import { baseurl } from '../shared/baseUrl';
 import { fetchComments, fetchDishes, fetchLeaders, fetchPromos } from '../redux/ActionCreators';
@@ -87,6 +88,24 @@ const AboutNavigator = createStackNavigator({
 
 const ContactNavigator = createStackNavigator({
     Contact : { screen : Contact }
+}, {
+    navigationOptions : ({navigation}) => ({
+        headerStyle : {
+            backgroundColor : '#512DA8'
+        },
+        haederTintColor : '#fff',
+        headerTitleStyle : {
+            color : '#fff'
+        },
+        headerLeft : <Icon name='menu' color='white'
+                        size={24} onPress={() => navigation.toggleDrawer()}
+                     />
+
+    })
+});
+
+const FavoriteNavigator = createStackNavigator({
+    Favorite : { screen : Favorite }
 }, {
     navigationOptions : ({navigation}) => ({
         headerStyle : {
@@ -196,6 +215,21 @@ const MainNavigator = createDrawerNavigator({
                     type='font-awesome'
                     color={tintColor}
                     size={22}
+                />
+            )
+        }
+    },
+    Favorite : {
+        screen : FavoriteNavigator,
+        navigationOptions : {
+            title : 'My Favorites',
+            drawerLabel : 'My Favorites',
+            drawerIcon : ({ tintColor }) => (
+                <Icon
+                    name='heart'
+                    type='font-awesome'
+                    color={tintColor}
+                    size={24}
                 />
             )
         }
