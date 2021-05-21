@@ -20,6 +20,7 @@
     "react-native-reanimated": "~2.1.0",
     "react-native-review-modal": "^0.0.1",
     "react-native-screens": "~3.0.0",
+    "react-native-swipeout": "^2.3.6",
     "react-native-touchable-scale": "^2.1.2",
     "react-native-unimodules": "~0.13.3",
     "react-native-web": "~0.13.12",
