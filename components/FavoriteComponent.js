@@ -31,7 +31,7 @@ class Favorite extends Component {
         
         const renderFavorites = ({item, index}) => {
 
-            const rightButton = [
+            const leftButton = [
                 {
                     text: 'Delete',
                     type: 'delete',
@@ -56,7 +56,7 @@ class Favorite extends Component {
                 }
             ];
 
-            <Swipeout autoClose={true} right={rightButton}>
+            <Swipeout autoClose={true} left={leftButton}>
                 <ListItem
                     key={index}
                     onPress={() => navigate('Dishdetail',{ dishId: item.id })}
