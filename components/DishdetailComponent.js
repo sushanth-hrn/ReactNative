@@ -6,6 +6,7 @@ import { baseurl } from '../shared/baseUrl';
 import { postFavorite } from '../redux/ActionCreators';
 import ReviewModal from "react-native-review-modal";
 import { postComment } from '../redux/ActionCreators';
+import * as Animatable from 'react-native-animatable';
 
 const mapStateToProps = state => {
     return {
@@ -28,28 +29,30 @@ function RenderDish(props) {
         
     if(dish) {
         return (
-            <Card>
-                <Card.Image source={{uri: baseurl + dish.image}}>
-                    <Card.FeaturedTitle>{dish.name}</Card.FeaturedTitle>
-                </Card.Image>
-                <Text style={{margin: 10}}>{dish.description}</Text>
-                <Icon 
-                    raised
-                    reverse
-                    name= {props.favorite ? 'heart' : 'heart-o'}
-                    type='font-awesome'
-                    color= '#f50'
-                    onPress={() => props.favorite ? console.log('Already a favorite') : props.onPress()}
-                />
-                <Icon 
-                    raised
-                    reverse
-                    name= 'pencil'
-                    type='font-awesome'
-                    color= '#512DA8'
-                    onPress={() => props.toggleModal()}
-                />
-            </Card>
+            <Animatable.View animation='fadeInDown' duration={2000} delay={1000}>
+                <Card>
+                    <Card.Image source={{uri: baseurl + dish.image}}>
+                        <Card.FeaturedTitle>{dish.name}</Card.FeaturedTitle>
+                    </Card.Image>
+                    <Text style={{margin: 10}}>{dish.description}</Text>
+                    <Icon 
+                        raised
+                        reverse
+                        name= {props.favorite ? 'heart' : 'heart-o'}
+                        type='font-awesome'
+                        color= '#f50'
+                        onPress={() => props.favorite ? console.log('Already a favorite') : props.onPress()}
+                    />
+                    <Icon 
+                        raised
+                        reverse
+                        name= 'pencil'
+                        type='font-awesome'
+                        color= '#512DA8'
+                        onPress={() => props.toggleModal()}
+                    />
+                </Card>
+            </Animatable.View>
         );
     } else {
         return (
@@ -72,22 +75,26 @@ function RenderComments(props) {
             );
         }
         return (
-            <Card>
-                <Card.Title>Comments</Card.Title>
-                <Card.Divider />
-                <FlatList 
-                    data = {comments}
-                    renderItem = {renderCommentItem}
-                    keyExtractor = {(item) => item.id.toString()}
-                />
-            </Card>
+            <Animatable.View animation='fadeInUp' duration={2000} delay={1000}>
+                <Card>
+                    <Card.Title>Comments</Card.Title>
+                    <Card.Divider />
+                    <FlatList 
+                        data = {comments}
+                        renderItem = {renderCommentItem}
+                        keyExtractor = {(item) => item.id.toString()}
+                    />
+                </Card>
+            </Animatable.View>
         )
     } else {
-        <View>
-            <Card>
-                <Text>No Comments available for this dish</Text>
-            </Card>
-        </View>
+        return (
+            <Animatable.View animation='fadeInUp' duration={2000} delay={1000}>
+                <Card>
+                    <Text>No Comments available for this dish</Text>
+                </Card>
+            </Animatable.View>
+        )
     }
 }
 

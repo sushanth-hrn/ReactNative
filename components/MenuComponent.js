@@ -4,6 +4,7 @@ import { Avatar, ListItem, Tile } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { baseurl } from '../shared/baseUrl';
 import { Loading } from './LoadingComponent';
+import * as Animatable from 'react-native-animatable';
 
 const mapStateToProps = state => {
     return {
@@ -36,16 +37,16 @@ class Menu extends Component {
                 //     </ListItem.Content>
                 //     <ListItem.Chevron/>
                 // </ListItem>
-                <Tile 
-                    key = {index}
-                    onPress={() => navigate('Dishdetail',{ dishId: item.id })} 
-                    title={item.name}
-                    caption={item.description}
-                    featured
-                    imageSrc={{ uri : baseurl + item.image }}
-                >
-
-                </Tile>
+                <Animatable.View animation='fadeInRightBig' duration={2000} delay={1000}>
+                    <Tile 
+                        key = {index}
+                        onPress={() => navigate('Dishdetail',{ dishId: item.id })} 
+                        title={item.name}
+                        caption={item.description}
+                        featured
+                        imageSrc={{ uri : baseurl + item.image }}
+                    />
+                </Animatable.View>
             );
         };
 
@@ -59,7 +60,9 @@ class Menu extends Component {
         else if(this.props.dishes.errMess) {
             return (
                 <View>
-                    <Text>{this.props.dishes.errMess}</Text>
+                    <Animatable.View animation='fadeInRightBig' duration={2000} delay={1000}>
+                        <Text>{this.props.dishes.errMess}</Text>
+                    </Animatable.View>
                 </View>
             )
         }
