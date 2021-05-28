@@ -5,6 +5,7 @@ import { SecureStore, Permissions, ImagePicker } from 'expo';
 import { createBottomTabNavigator } from 'ract-navigation';
 import { baseurl } from '../shared/baseUrl';
 
+
 class LoginTab extends Component {
 
     constructor(props){
@@ -128,9 +129,48 @@ class RegisterTab extends Component {
         )
     };
 
+    handleRegister() {
+        console.log(JSON.stringify(this.state))
+        if(this.state.remember) {
+            SecureStore.setItemAsync(
+                'userinfo',
+                JSON.stringify({username : this.state.username, password : this.state.password})
+            )
+            .catch((err) => console.log('Could not save user info', err))
+        }
+    };
+
+    getImageFromCamera = async () => {
+        const cameraPermission = await Permissions.askAsync(Permissions.CAMERA);
+        const cameraRollPermission = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+
+        if(cameraPermission.status === 'granted' && cameraRollPermission.status === 'granted') {
+            let capturedImage = await ImagePicker.launchCameraAsyns({
+                allwsEditing: true,
+                aspect: [4,3]
+            })
+            if(!capturedImage.cancelled) {
+                this.setState({
+                    imageUrl : capturedImage.uri
+                })
+            }
+        }
+    }
+
     render() {
         <ScrollView>
             <View style={styles.container}>
+                <View style={styles.imageContainer}>
+                    <Image 
+                        source={{ uri: this.state.imageUrl}}
+                        loadingIndicatorSource={require('./images/logo.png')}
+                        style={styles.image} 
+                    />
+                    <Button 
+                        title='Camera'
+                        onPress={() => this.getImageFromCamera()}
+                    />
+                </View>
                 <Input
                     placeholder='Username' 
                     onChangeText={(username) => this.setState({username})}
@@ -203,11 +243,21 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         margin: 20,
     },
+    imageContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        margin: 20
+    },
+    image: {
+      margin: 10,
+      width: 80,
+      height: 60
+    },
     formInput: {
-        margin: 40
+        margin: 20
     },
     formCheckbox: {
-        margin: 40,
+        margin: 20,
         backgroundColor: null
     },
     formButton: {
