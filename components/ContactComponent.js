@@ -1,12 +1,21 @@
 import React, { Component } from 'react';
 import { SafeAreaView, Text } from 'react-native';
-import { Card } from 'react-native-elements';
+import { Card, Button } from 'react-native-elements';
 import * as Animatable from 'react-native-animatable';
+import { MailComposer } from 'expo';
 
 class Contact extends Component {
 
     static navigationOptions = {
         title : 'Contact Us'
+    }
+
+    sendEmail() {
+        MailComposer.composeAsync({
+            recipients: ['sushanthnukala280@gmail.com'],
+            subject: 'Test Mail',
+            body: 'It worked lol'
+        });
     }
 
     render() {
@@ -26,6 +35,12 @@ class Contact extends Component {
                             Email:confusion@food.net
                             `}
                         </Text>
+                        <Button 
+                            title='Send Email'
+                            buttonStyle={{backgroundColor: "#512DA8"}}
+                            icon={<Icon name='envelope-o' type='font-awesome' color='white'/>}
+                            onPress={() => this.sendEmail}
+                        />
                     </Card>
                 </Animatable.View>
             </SafeAreaView>
