@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, ScrollView, Modal, StyleSheet, Alert, PanResponder } from 'react-native';
+import { View, Text, FlatList, ScrollView, Modal, StyleSheet, Alert, PanResponder, Share } from 'react-native';
 import { Card, ListItem, Icon, Input } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { baseurl } from '../shared/baseUrl';
@@ -75,7 +75,17 @@ function RenderDish(props) {
             }
             return true;
         }
-    })
+    });
+
+    const shareDish = (title, message, url) => {
+        Share.share({
+            title : title,
+            message : title + ': ' + message + ' ' + url,
+            url : url
+        },{
+            dialogTitle : 'Share ' + title 
+        });
+    }
         
     if(dish) {
         return (
@@ -83,7 +93,7 @@ function RenderDish(props) {
                 ref={this.hadleViewRef}
                 {...panResponder.panHandlers}
             >
-                <Card>
+                <Card style={styles.card}>
                     <Card.Image source={{uri: baseurl + dish.image}}>
                         <Card.FeaturedTitle>{dish.name}</Card.FeaturedTitle>
                     </Card.Image>
@@ -94,6 +104,7 @@ function RenderDish(props) {
                         name= {props.favorite ? 'heart' : 'heart-o'}
                         type='font-awesome'
                         color= '#f50'
+                        style={styles.cardItem}
                         onPress={() => props.favorite ? console.log('Already a favorite') : props.onPress()}
                     />
                     <Icon 
@@ -102,7 +113,17 @@ function RenderDish(props) {
                         name= 'pencil'
                         type='font-awesome'
                         color= '#512DA8'
+                        style={styles.cardItem}
                         onPress={() => props.toggleModal()}
+                    />
+                    <Icon 
+                        raised
+                        reverse
+                        name= 'share'
+                        type= 'font-awesome'
+                        color= '#51D2A8'
+                        style={styles.cardItem}
+                        onPress={() => shareDish(dish.name, dish.description, baseurl + dish.image)}
                     />
                 </Card>
             </Animatable.View>
@@ -295,6 +316,15 @@ const styles = StyleSheet.create({
     modalText: {
         fontSize: 18,
         margin: 10
+    },
+    card: {
+        justifyContent: 'center',
+        flex: 1,
+        flexDirection: 'row',
+        margin: 20
+    },
+    cardItem: {
+        flex: 1
     }
 });
 
