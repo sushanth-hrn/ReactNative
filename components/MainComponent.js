@@ -1,5 +1,5 @@
 import React , { Component } from 'react';
-import { View, Platform, Image, StyleSheet, ScrollView, Text } from "react-native";
+import { View, Platform, Image, StyleSheet, ScrollView, Text, NetInfo, ToastAndroid } from "react-native";
 import { createStackNavigator } from "react-navigation-stack";
 import { createDrawerNavigator, DrawerItems } from "react-navigation-drawer";
 import { createAppContainer, SafeAreaView } from "react-navigation";
@@ -299,6 +299,40 @@ class Main extends Component {
         this.props.fetchComments();
         this.props.fetchPromos();
         this.props.fetchLeaders();
+
+        NetInfo.getConnectionInfo()
+            .then((connectionInfo) => {
+                ToastAndroid.show(
+                    'Your Initial Network Connection Type: ' + connectionInfo.type +
+                    ' and effectiveType: ' + connectionInfo.effectiveType,
+                    ToastAndroid.LONG
+                )
+            });
+        
+        NetInfo.addEventListener('connectionChange',this.handleConnectivityChange);
+    }
+
+    componentWillUnmount() {
+        NetInfo.removeEventListener('connectionChange', this.handleConnectivityChange);
+    }
+
+    handleConnectivityChange(connectionInfo) {
+        switch(connectionInfo.type) {
+            case 'none':
+                ToastAndroid.show('You are offline',ToastAndroid.LONG);
+                break;
+            case 'wifi':
+                ToastAndroid.show('You are connected to WiFi network',ToastAndroid.LONG);
+                break;
+            case 'cellular':
+                ToastAndroid.show('You are connected to cellular network',ToastAndroid.LONG);
+                break;
+            case 'unknown':
+                ToastAndroid.show('You are connected to unknown network',ToastAndroid.LONG);
+                break;
+            default:
+                break;
+        }
     }
 
     render() {
