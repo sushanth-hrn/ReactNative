@@ -7,6 +7,13 @@
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
-    ]
+    ],
+    "icon": "./icon.png",
+    "ios": {
+      "bundleIdentifier": "net.food.confusion.confusion"
+    },
+    "android": {
+      "package": "net.food.confusion.confusion"
+    }
   }
 }
